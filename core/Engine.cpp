@@ -22,7 +22,7 @@ Engine::~Engine() {
 
 void Engine::action(int c, int x, int y) {
 	printf ("engine action, c:%d\n",c);
-	keyboard[c] = true;
+
 	switch (c) {
 	case 100:
 		angle -= 0.1;
