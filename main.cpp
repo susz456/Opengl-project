@@ -75,7 +75,7 @@ void drawObject(){
 
   //glDrawArrays(GL_TRIANGLES, 0, platformVertexCount);
   matM=scale(matM, vec3(0.04,0.04,0.04));
-  vecZ=vec3(globalEngine->X-10,globalEngine->Y,globalEngine->Z);
+  vecZ=vec3(globalEngine->X-10,globalEngine->Y+14,globalEngine->Z);
   matM=translate(matM, vecZ);
   //matM=scale(matM, vec3(0.02,0.02,0.02));
 
@@ -93,7 +93,7 @@ void displayFrame() {
 	matP = perspective(CAMERA_ANGLE,
 			(float) WINDOW_WIDTH / (float) WINDOW_HEIGHT, 1.0f, 100.0f); //kat, stosunek szer/dl, granica dolna odkad widac obraz, granica gorna (odleglosc od kamery)
 
-	matV = lookAt(vec3(globalCamera->X, globalCamera->Y, -6.0f),
+	matV = lookAt(vec3(globalCamera->X-4, globalCamera->Y+7, -5.0f),
 			vec3(0.0f, 0.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f));
 
 	matM = rotate(mat4(1.0f), ANGLE, vec3(0, 1, 0));
