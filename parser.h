@@ -11,8 +11,8 @@ using namespace std;
 using namespace glm;
 
 struct mesh_M{
-  vector<vec3> w;
-  vector<vec3> n;
+  vector<vec4> w;
+  vector<vec4> n;
   vector<vec2> tc;
   string material;
   bool tex;
@@ -22,8 +22,10 @@ struct mesh_M{
   vec3 Kd;
   vec3 Ks;
   float Ni;
-  //int id_material;
   int count;
+  GLuint vertices;
+  GLuint normals;
+  GLuint texCoords;
 };
 
 struct mtl{
@@ -234,19 +236,19 @@ vector<mesh_M> loadObj(char* file_obj, char* file_mtl){//(char* pliczek, vector<
       if (((!face_flag)&&face_flag2)||!plik.good()){
         face_flag2=false;
         mesh_M part;
-        vec3 tmpVec;
-        vec3 tmpNor;
+        vec4 tmpVec;
+        vec4 tmpNor;
         vec2 tmpTex;
         vector<vec3>::iterator it;
         //cout<<"face"<<endl;
         for (it=vertexIndieces.begin(); it!=vertexIndieces.end(); ++it){
-          tmpVec=vec3(tempVertices[(*it).x-1].x, tempVertices[(*it).x-1].y, tempVertices[(*it).x-1].z);
+          tmpVec=vec4(tempVertices[(*it).x-1].x, tempVertices[(*it).x-1].y, tempVertices[(*it).x-1].z,1.0);
           part.w.push_back(tmpVec);
 
-          tmpVec=vec3(tempVertices[(*it).y-1].x, tempVertices[(*it).y-1].y, tempVertices[(*it).y-1].z);
+          tmpVec=vec4(tempVertices[(*it).y-1].x, tempVertices[(*it).y-1].y, tempVertices[(*it).y-1].z,1.0);
           part.w.push_back(tmpVec);
 
-          tmpVec=vec3(tempVertices[(*it).z-1].x, tempVertices[(*it).z-1].y, tempVertices[(*it).z-1].z);
+          tmpVec=vec4(tempVertices[(*it).z-1].x, tempVertices[(*it).z-1].y, tempVertices[(*it).z-1].z,1.0);
           part.w.push_back(tmpVec);
         }
         //cout<<"po vertexIndieces"<<endl;
@@ -265,13 +267,13 @@ vector<mesh_M> loadObj(char* file_obj, char* file_mtl){//(char* pliczek, vector<
         //cout<<"Po texcoordsindieces"<<endl;
         //
         for(it=normalsIndieces.begin(); it!=normalsIndieces.end(); ++it){
-          tmpNor=vec3(tempNormals[(*it).x-1].x, tempNormals[(*it).x-1].y, tempNormals[(*it).x-1].z);
+          tmpNor=vec4(tempNormals[(*it).x-1].x, tempNormals[(*it).x-1].y, tempNormals[(*it).x-1].z,0.0);
           part.n.push_back(tmpNor);
 
-          tmpNor=vec3(tempNormals[(*it).y-1].x, tempNormals[(*it).y-1].y, tempNormals[(*it).y-1].z);
+          tmpNor=vec4(tempNormals[(*it).y-1].x, tempNormals[(*it).y-1].y, tempNormals[(*it).y-1].z,0.0);
           part.n.push_back(tmpNor);
 
-          tmpNor=vec3(tempNormals[(*it).z-1].x, tempNormals[(*it).z-1].y, tempNormals[(*it).z-1].z);
+          tmpNor=vec4(tempNormals[(*it).z-1].x, tempNormals[(*it).z-1].y, tempNormals[(*it).z-1].z,0.0);
           part.n.push_back(tmpNor);
         }
         //cout<<"po normalsindieces"<<endl;
@@ -326,6 +328,11 @@ vector<mesh_M> loadObj(char* file_obj, char* file_mtl){//(char* pliczek, vector<
       index=find_mtl((*it).material, mtl_vector);
       (*it).handle=mtl_vector[index].handle;
       (*it).tex=mtl_vector[index].tex;
+      (*it).Ns=mtl_vector[index].Ns;
+      (*it).Ka=mtl_vector[index].Ka;
+      (*it).Kd=mtl_vector[index].Kd;
+      (*it).Ks=mtl_vector[index].Ks;
+      (*it).Ni=mtl_vector[index].Ni;
     }
     //
     return result;
