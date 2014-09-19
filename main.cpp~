@@ -117,8 +117,7 @@ GLuint makeBuffer(void* data, int vertexCount, int vertexSize) {
 
 	return handle;
 }
-
-float color [] = {1.0f, 0.0f, 0.0f, 1.0f};
+float [] color = {1.0f, 0.0f, 0.0f, 1.0f};
 void setupVBO(){
   //pVertices=makeBuffer(pvertices, platformVertexCount, sizeof(float)*4);
 
