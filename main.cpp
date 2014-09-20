@@ -5,7 +5,11 @@ void keypressWrapper(unsigned char c, int x, int y) {
 }
 
 void keypressWrapper(int c, int x, int y) {
-	globalEngine->action(c, x, y);
+	globalEngine->actionDown(c, x, y);
+}
+
+void keypressUpWrapper(int c, int x, int y) {
+	globalEngine->actionUp(c, x, y);
 }
 
 void changeSize(int w, int h) {
@@ -182,7 +186,9 @@ void initGLUT(int* argc, char** argv) {
 	glutReshapeFunc(changeSize);
 
 	glutSpecialFunc(keypressWrapper);
+	glutSpecialUpFunc(keypressUpWrapper);
 	glutKeyboardFunc(keypressWrapper);
+	glutIgnoreKeyRepeat(1);
 }
 
 void loadModels() {
