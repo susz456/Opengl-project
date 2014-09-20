@@ -21,7 +21,7 @@ Engine::~Engine() {
 }
 
 void Engine::action(int c, int x, int y) {
-	printf ("engine action, c:%d\n",c);
+	//printf ("engine action, c:%d\n",c);
 
 	switch (c) {
 	case 100:
