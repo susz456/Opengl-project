@@ -62,6 +62,7 @@ void drawObject(){
   glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
   
 
+	//matM = rotate(mat4(1.0f), globalEngine->angle, vec3(0, 1, 0));
   drawMesh(loaded);
 
   matM=scale(matM, vec3(0.04,0.04,0.04));
@@ -69,6 +70,8 @@ void drawObject(){
   matM=translate(matM, vecZ);
 
   glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
+  
+
 
   drawMesh(model);
 
@@ -94,6 +97,7 @@ void displayFrame() {
 }
 
 void nextFrame(void) {
+	globalEngine->move();
 	glutPostRedisplay();
 }
 
