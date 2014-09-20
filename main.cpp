@@ -56,17 +56,22 @@ void drawObject(){
   glUniform4fv(shaderProgram->getUniformLocation("lPos"), 1, value_ptr(lightPosition));//pozycja zrodla swiatla
 
   matM=scale(matM, vec3(10.0,10.0,10.0));
+  vecZ=vec3(-globalEngine->X,-globalEngine->Y,-globalEngine->Z);
+  mat4 matM1=translate(matM, vecZ);
 
   glUniformMatrix4fv(shaderProgram->getUniformLocation("P"), 1, false, value_ptr(matP));
   glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, value_ptr(matV));
-  glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
-  
+  glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM1));
+ 
+	//mat4 matV1 = lookAt(vec3(globalCamera->X+globalEngine->X-4, globalCamera->Y+globalEngine->Y+7, -5.0f),
+		//	vec3(0.0f, 0.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f));
 
+  //glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, value_ptr(matV1));
 	//matM = rotate(mat4(1.0f), globalEngine->angle, vec3(0, 1, 0));
   drawMesh(loaded);
 
   matM=scale(matM, vec3(0.04,0.04,0.04));
-  vecZ=vec3(globalEngine->X-10,globalEngine->Y+14,globalEngine->Z);
+  vecZ=vec3(-10,14,0);//globalEngine->X, globalEngine->Y, globalEngine->Z
   matM=translate(matM, vecZ);
 
   glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
