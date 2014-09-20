@@ -9,7 +9,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Car_Blue_Body.tga
+map_Kd textures/Car_Blue_Body.tga
 
 newmtl Material
 Ns 96.078431
@@ -19,7 +19,7 @@ Ks 0.261003 0.261003 0.261003
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Car_Blue_RearWindow.tga
+map_Kd textures/Car_Blue_RearWindow.tga
 
 newmtl Material.001
 Ns 96.078431
@@ -29,7 +29,7 @@ Ks 0.261003 0.261003 0.261003
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Tire&Rim.tga
+map_Kd textures/Tire&Rim.tga
 
 newmtl Material.003
 Ns 96.078431
@@ -39,7 +39,7 @@ Ks 0.261003 0.261003 0.261003
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Tire&Rim.tga
+map_Kd textures/Tire&Rim.tga
 
 newmtl Material_Tire&Rim.jpg
 Ns 96.078431
@@ -49,7 +49,7 @@ Ks 0.261003 0.261003 0.261003
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Tire&Rim.tga
+map_Kd textures/Tire&Rim.tga
 
 newmtl RearWindow
 Ns 96.078431
@@ -59,7 +59,7 @@ Ks 0.201253 0.201253 0.201253
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Tire&Rim.tga
+map_Kd textures/Tire&Rim.tga
 
 newmtl WhiteStripe
 Ns 96.078431
@@ -69,7 +69,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd WhiteStripe.tga
+map_Kd textures/WhiteStripe.tga
 
 newmtl WindShield
 Ns 96.078431
@@ -79,7 +79,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Car_Blue_WindShield.tga
+map_Kd textures/Car_Blue_WindShield.tga
 
 newmtl Windows
 Ns 96.078431
@@ -89,4 +89,4 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Car_Blue_SideWindow.tga
+map_Kd textures/Car_Blue_SideWindow.tga

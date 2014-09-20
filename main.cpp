@@ -141,8 +141,8 @@ void setupVAO() {
 }
 
 void setupShaders() {
-	shaderProgram = new ShaderProgram("vertex_shader.glsl", NULL,
-			"fragment_shader.glsl");
+	shaderProgram = new ShaderProgram("shaders/vertex_shader.glsl", NULL,
+			"shaders/fragment_shader.glsl");
 }
 
 void initOpenGL() {
