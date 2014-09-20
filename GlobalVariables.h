@@ -4,8 +4,6 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-//#include "cube.h"
-#include "platform.h"
 #include "shaderprogram.h"
 #include "parser.h"
 #include "tga.h"
@@ -24,6 +22,11 @@ float CAMERA_ANGLE = 60.0f;
 
 float ANGLE = 0;
 
+char * AUTO_MODEL_DIR = "models/auto.obj";
+char * AUTO_MATERIAL_DIR = "models/auto.mtl";
+char * TRACK_MODEL_DIR = "models/trasa.obj";
+char * TRACK_MATERIAL_DIR = "models/trasa.mtl";
+
 ShaderProgram *shaderProgram;
 
 GLuint vao;
@@ -40,14 +43,6 @@ mat4 matM; //modelu
 vec3 vecZ; //wektor przesuniecia przy wduszeniu strzalek
 
 vec3 lightPosition = vec3(0.0, 20.0, -5.0); //pozycja zrodla swiatla
-//float *vertices=verticesAvent;
-//float *vertices=cubeVertices;
-//float *colors=cubeColors;
-//float *normals=cubeNormals;
-//int vertexCount=10;//98237 cubeVertexCount;
-
-float *pvertices = platformVertices;
-float *pcolors = platformColors;
 
 Camera * globalCamera;
 Engine * globalEngine;
@@ -55,7 +50,6 @@ Engine * globalEngine;
 GLuint *model_vertices;
 GLuint *model_texCoords;
 vector<mesh_M> loaded, model;
-mesh_M moj;
 GLuint bufV;
 float *vert;
 float *coords;

@@ -49,17 +49,11 @@ void drawMesh(vector<mesh_M> &mesh){
   }
 }
 
-
 void drawObject(){
   shaderProgram->use();
   glBindVertexArray(vao);
-//cout<<"camera "<<camera_x<<" "<<camera_y<<" "<<camera_z<<endl;
-  //platforma
-  //assignVBOtoAttribute("vertex", pVertices, 4);
   assignVBOtoAttribute("color", pColors, 4);
-  //
   glUniform4fv(shaderProgram->getUniformLocation("lPos"), 1, value_ptr(lightPosition));//pozycja zrodla swiatla
-
 
   matM=scale(matM, vec3(10.0,10.0,10.0));
 
@@ -67,17 +61,12 @@ void drawObject(){
   glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, value_ptr(matV));
   glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
   
-  //mtl_on=0;
-  //tex_on=0;
-  //glUniform1f(shaderProgram->getUniformLocation("mtl_on"),  mtl_on);//zmienna dla shadera, sprawdza skad brac kolor
-  //glUniform1f(shaderProgram->getUniformLocation("tex_on"),  tex_on);//czy textury wlaczone
+
   drawMesh(loaded);
 
-  //glDrawArrays(GL_TRIANGLES, 0, platformVertexCount);
   matM=scale(matM, vec3(0.04,0.04,0.04));
   vecZ=vec3(globalEngine->X-10,globalEngine->Y+14,globalEngine->Z);
   matM=translate(matM, vecZ);
-  //matM=scale(matM, vec3(0.02,0.02,0.02));
 
   glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
 
@@ -187,23 +176,20 @@ void initGLUT(int* argc, char** argv) {
 	glutKeyboardFunc(keypressWrapper);
 }
 
+void loadModels() {
+	model=loadObj(AUTO_MODEL_DIR, AUTO_MATERIAL_DIR);
+	loaded=loadObj(TRACK_MODEL_DIR, TRACK_MATERIAL_DIR);
+}
 
 int main(int argc, char** argv){
 	globalEngine = new Engine();
 	globalCamera = new Camera();
-  initGLUT(&argc, argv);
-  initGLEW();
-  model=loadObj("auto.obj", "auto.mtl");
-  loaded=loadObj("trasa.obj", "trasa.mtl");
-  //loaded.vertices= new GLuint[loaded.size()];
-  //loaded.texCoords= new GLuint[loaded.size()];
-
-
-  initOpenGL();
-  //generateShadowFBO();
-  //shadowMapping();
-
+	
+	initGLUT(&argc, argv);
+	initGLEW();
+	loadModels();
+	
+	initOpenGL();
 	glutMainLoop();
-
 	return 0;
 }
