@@ -6,6 +6,8 @@
  */
 
 #include "Camera.h"
+#include <cstdio>
+
 
 Camera::Camera() {
 	X = 0;
@@ -17,6 +19,7 @@ Camera::~Camera() {
 }
 
 void Camera::action(unsigned char c, int x, int y) {
+	printf("key pressed:%c\n", c);
 	switch (c) {
 	case 'a':
 		X ++;

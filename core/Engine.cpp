@@ -16,7 +16,7 @@ Engine::~Engine() {
 }
 
 void Engine::action(const int c, int x, int y) {
-	//printf ("engine action, c:%d\n",c);
+	printf ("engine action, c:%d\n",c);
 	
 	switch (c) {
 	case 100:
@@ -25,12 +25,15 @@ void Engine::action(const int c, int x, int y) {
 	case 102:
 		angle += 0.1;
 		break;
+	case KEYBOARD_SHIFT:
+		deaccelerate(HAND_BRAKE_FACTOR);
+		break;
 	case KEYBOARD_UP:
 		if (speed <= 0) {
 			direction = DIRECTION_FORWARD;
-			accelerate();
+			accelerate(ACCELERATE_FACTOR);
 		} else if (direction == DIRECTION_FORWARD){
-			accelerate();
+			accelerate(ACCELERATE_FACTOR);
 		} else if (direction == DIRECTION_BACKWARD) {
 			deaccelerate(BRAKING_FACTOR);
 		}
@@ -38,9 +41,9 @@ void Engine::action(const int c, int x, int y) {
 	case KEYBOARD_DOWN:
 		if (speed <= 0) {
 			direction = DIRECTION_BACKWARD;
-			accelerate();
+			accelerate(ACCELERATE_FACTOR);
 		} else if (direction == DIRECTION_BACKWARD){
-			accelerate();
+			accelerate(ACCELERATE_FACTOR);
 		} else if (direction == DIRECTION_FORWARD) {
 			deaccelerate(BRAKING_FACTOR);
 		}
@@ -50,7 +53,7 @@ void Engine::action(const int c, int x, int y) {
 }
 
 void Engine::move() {
-	printf ("speed:%f\n",speed);
+	//printf ("speed:%f\n",speed);
 	if (speed > 0) {
 		deaccelerate(AIR_RESISTANCE);
 	} else {
@@ -63,12 +66,12 @@ void Engine::move() {
 	}
 }
 
-void Engine::accelerate() {
+void Engine::accelerate(float factor) {
 	if (speed >= MAX_SPEED) {
 		speed == MAX_SPEED;
 		return;
 	}
-	speed = speed + ((MAX_SPEED - speed) * 0.01);
+	speed = speed + ((MAX_SPEED - speed) * factor);
 }
 
 void Engine::deaccelerate(float factor) {
