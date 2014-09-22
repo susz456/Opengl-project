@@ -29,6 +29,7 @@ public:
 	void actionUp(int c, int x, int y);
 	void move();
 	void update();
+  float getAngle();
 	float speed;
 	int direction;
 	float X;

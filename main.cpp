@@ -59,9 +59,11 @@ void drawObject(){
   assignVBOtoAttribute("color", pColors, 4);
   glUniform4fv(shaderProgram->getUniformLocation("lPos"), 1, value_ptr(lightPosition));//pozycja zrodla swiatla
 
-  matM=scale(matM, vec3(10.0,10.0,10.0));
+  matM=scale(matM, vec3(2.0,2.0,2.0));
   vecZ=vec3(-globalEngine->X,-globalEngine->Y,-globalEngine->Z);
   mat4 matM1=translate(matM, vecZ);
+  vecZ=vec3(0.42,-0.57,0);//globalEngine->X, globalEngine->Y, globalEngine->Z
+  matM1=translate(matM1, vecZ);
 
   glUniformMatrix4fv(shaderProgram->getUniformLocation("P"), 1, false, value_ptr(matP));
   glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, value_ptr(matV));
@@ -71,17 +73,16 @@ void drawObject(){
 		//	vec3(0.0f, 0.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f));
 
   //glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, value_ptr(matV1));
-	//matM = rotate(mat4(1.0f), globalEngine->angle, vec3(0, 1, 0));
   drawMesh(loaded);
 
-  matM=scale(matM, vec3(0.04,0.04,0.04));
-  vecZ=vec3(-10,14,0);//globalEngine->X, globalEngine->Y, globalEngine->Z
-  matM=translate(matM, vecZ);
+  matM = rotate(matM, globalEngine->getAngle(), vec3(0, 1, 0));
+  matM=scale(matM, vec3(0.08,0.08,0.08));
+  //vecZ=vec3(-5,8,0);//globalEngine->X, globalEngine->Y, globalEngine->Z
+  //matM=translate(matM, vecZ);
 
+  
   glUniformMatrix4fv(shaderProgram->getUniformLocation("M"), 1, false, value_ptr(matM));
   
-
-
   drawMesh(model);
 
   glBindVertexArray(0);
@@ -94,7 +95,7 @@ void displayFrame() {
 	matP = perspective(CAMERA_ANGLE,
 			(float) WINDOW_WIDTH / (float) WINDOW_HEIGHT, 1.0f, 100.0f); //kat, stosunek szer/dl, granica dolna odkad widac obraz, granica gorna (odleglosc od kamery)
 
-	matV = lookAt(vec3(globalCamera->X-4, globalCamera->Y+7, -5.0f),
+	matV = lookAt(vec3(globalCamera->X, globalCamera->Y+0.7, -1.9f),
 			vec3(0.0f, 0.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f));
 
 	matM = rotate(mat4(1.0f), ANGLE, vec3(0, 1, 0));

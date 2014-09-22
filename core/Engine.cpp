@@ -56,10 +56,10 @@ void Engine::update() {
 
 		switch (i) {
 		case KEYBOARD_LEFT:
-			//angle -= 0.1;
+			angle -= 1.0;
 			break;
 		case KEYBOARD_RIGHT:
-			//angle += 0.1;
+			angle += 1.0;
 			break;
 		case KEYBOARD_SHIFT:
 			deaccelerate(HAND_BRAKE_FACTOR);
@@ -117,4 +117,8 @@ void Engine::deaccelerate(float factor) {
 		return;
 	}
 	speed = speed - ((MAX_SPEED - speed) * factor);
+}
+
+float Engine::getAngle() {
+  return angle;
 }
