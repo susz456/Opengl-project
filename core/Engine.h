@@ -11,6 +11,7 @@ private:
 	int static const KEYBOARD_LEFT = 0;
 	int static const KEYBOARD_RIGHT = 2;
 	int static const KEYBOARD_SHIFT = 13;
+	int static const KEYBOARD_CTRL = 15;
 	
 	float static const MAX_SPEED = 0.15;
 	float static const BRAKING_FACTOR = 0.01;

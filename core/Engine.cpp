@@ -84,6 +84,11 @@ void Engine::update() {
 				deaccelerate(BRAKING_FACTOR);
 			}
 			break;
+		case KEYBOARD_CTRL:
+			Z = 0;
+			speed = 0;
+			angle = 0;
+			break;
 		}
 	}
 	if (speed > 0) {
@@ -95,7 +100,7 @@ void Engine::update() {
 
 void Engine::move() {
 	update();
-	printf ("speed:%f\n",speed);
+	//printf ("speed:%f\n",speed);
 	if (direction == DIRECTION_FORWARD) {
 		Z += speed;
 	} else {
