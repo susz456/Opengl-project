@@ -116,7 +116,11 @@ void Engine::deaccelerate(float factor) {
 		speed = 0;
 		return;
 	}
+<<<<<<< HEAD
 	speed = speed - ((MAX_SPEED - speed)/10 * factor) - 5*(speed * factor);
+=======
+	speed = speed - ((MAX_SPEED - speed)/10 * factor) - (speed * factor);
+>>>>>>> 81998adc462a35c543589d7907c849313be7ca42
 }
 
 float Engine::getAngle() {
