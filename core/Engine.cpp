@@ -95,7 +95,7 @@ void Engine::update() {
 
 void Engine::move() {
 	update();
-	//printf ("speed:%f\n",speed);
+	printf ("speed:%f\n",speed);
 	if (direction == DIRECTION_FORWARD) {
 		Z += speed;
 	} else {
@@ -116,7 +116,7 @@ void Engine::deaccelerate(float factor) {
 		speed = 0;
 		return;
 	}
-	speed = speed - ((MAX_SPEED - speed) * factor);
+	speed = speed - ((MAX_SPEED - speed)/10 * factor) - (speed * factor);
 }
 
 float Engine::getAngle() {
