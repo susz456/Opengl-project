@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include <cstdio>
+
 
 Engine::Engine() {
 	X = 0;
@@ -101,12 +101,17 @@ void Engine::update() {
 void Engine::move() {
 	update();
 	//printf ("speed:%f\n",speed);
-	printf ("angle:%f\n",angle);
-	if (direction == DIRECTION_FORWARD) {
-		Z += speed;
-	} else {
-		Z -= speed;
-	}
+	//printf ("angle:%f\n",angle);
+	
+	cosinus = cos (angle * PI / 180.0);
+	sinus = sin (angle * PI / 180.0);
+	
+	//printf ("cosinus:%f\n",cosinus);
+	//printf ("sinus:%f\n",sinus);
+	
+	Z += speed * cosinus;
+	X += speed * sinus;
+
 	if (angle > 360) {
 		angle -= 360;
 	} else if (angle < -360) {

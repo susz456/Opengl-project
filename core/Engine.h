@@ -1,5 +1,8 @@
 #ifndef ENGINE_H_
 #define ENGINE_H_
+#define PI 3.14159265
+#include <cstdio>
+#include <cmath>
 
 class Engine {
 private:
@@ -8,8 +11,8 @@ private:
 	int static const DIRECTION_BACKWARD = 2;
 	int static const KEYBOARD_UP = 1;
 	int static const KEYBOARD_DOWN = 3;
-	int static const KEYBOARD_LEFT = 0;
-	int static const KEYBOARD_RIGHT = 2;
+	int static const KEYBOARD_LEFT = 2;
+	int static const KEYBOARD_RIGHT = 0;
 	int static const KEYBOARD_SHIFT = 13;
 	int static const KEYBOARD_CTRL = 15;
 	
@@ -22,6 +25,8 @@ private:
 	void accelerate(float factor);
 	void deaccelerate(float factor);
 	
+	double cosinus;
+	double sinus;
 
 public:
 	Engine();
