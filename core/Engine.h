@@ -18,9 +18,11 @@ private:
 	
 	float static const MAX_SPEED = 0.15;
 	float static const BRAKING_FACTOR = 0.01;
-	float static const ACCELERATE_FACTOR = 0.003;
+	float static const ACCELERATE_FACTOR = 0.0015;
 	float static const AIR_RESISTANCE = 0.001;
 	float static const HAND_BRAKE_FACTOR = 0.3;
+	float static const TURNING_FACTOR = 0.002;
+	float static const ANGLE_CHANGE = 0.7;
 	
 	void accelerate(float factor);
 	void deaccelerate(float factor);

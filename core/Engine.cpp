@@ -56,10 +56,22 @@ void Engine::update() {
 
 		switch (i) {
 		case KEYBOARD_LEFT:
-			angle -= 1.0;
+			if (speed == 0) break;
+			if (direction == DIRECTION_FORWARD){
+				angle -= ANGLE_CHANGE;
+			} else {
+				angle += ANGLE_CHANGE;
+			}
+			deaccelerate(TURNING_FACTOR);
 			break;
 		case KEYBOARD_RIGHT:
-			angle += 1.0;
+			if (speed == 0) break;
+			if (direction == DIRECTION_FORWARD){
+				angle += ANGLE_CHANGE;
+			} else {
+				angle -= ANGLE_CHANGE;
+			}
+			deaccelerate(TURNING_FACTOR);
 			break;
 		case KEYBOARD_SHIFT:
 			deaccelerate(HAND_BRAKE_FACTOR);
@@ -86,6 +98,7 @@ void Engine::update() {
 			break;
 		case KEYBOARD_CTRL:
 			Z = 0;
+			X = 0;
 			speed = 0;
 			angle = 0;
 			break;
@@ -100,22 +113,18 @@ void Engine::update() {
 
 void Engine::move() {
 	update();
-	//printf ("speed:%f\n",speed);
+	printf ("speed:%f\n",speed);
 	//printf ("angle:%f\n",angle);
 	
 	cosinus = cos (angle * PI / 180.0);
 	sinus = sin (angle * PI / 180.0);
 	
-	//printf ("cosinus:%f\n",cosinus);
-	//printf ("sinus:%f\n",sinus);
-	
-	Z += speed * cosinus;
-	X += speed * sinus;
-
-	if (angle > 360) {
-		angle -= 360;
-	} else if (angle < -360) {
-		angle += 360;
+	if (direction == DIRECTION_FORWARD) {
+		Z += speed * cosinus;
+		X += speed * sinus;
+	} else {
+		Z -= speed * cosinus;
+		X -= speed * sinus;
 	}
 }
 
