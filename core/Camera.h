@@ -15,6 +15,7 @@ public:
 	void action(unsigned char c, int x, int y);
 	float X;
 	float Y;
+	float Z;
 };
 
 #endif /* CAMERA_H_ */

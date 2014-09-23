@@ -75,7 +75,7 @@ void drawObject(){
   //glUniformMatrix4fv(shaderProgram->getUniformLocation("V"), 1, false, value_ptr(matV1));
   drawMesh(loaded);
 
-  matM = rotate(matM, globalEngine->getAngle(), vec3(0, 1, 0));
+  matM = rotate(matM, globalEngine->angle, vec3(0, 1, 0));
   matM=scale(matM, vec3(0.08,0.08,0.08));
   //vecZ=vec3(-5,8,0);//globalEngine->X, globalEngine->Y, globalEngine->Z
   //matM=translate(matM, vecZ);
@@ -98,7 +98,7 @@ void displayFrame() {
 	matV = lookAt(vec3(globalCamera->X, globalCamera->Y+0.7, -1.9f),
 			vec3(0.0f, 0.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f));
 
-	matM = rotate(mat4(1.0f), ANGLE, vec3(0, 1, 0));
+	matM = rotate(mat4(1.0f), -globalEngine->angle, vec3(0, 1, 0));
 	//matV=matV+mat4(0.0,0.0,0.0,move_x,0.0,0.0,0.0,move_y,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 	drawObject();
 

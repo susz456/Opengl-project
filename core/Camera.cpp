@@ -33,5 +33,11 @@ void Camera::action(unsigned char c, int x, int y) {
 	case 's':
 		Y--;
 		break;
+	case 'q':
+		Z++;
+		break;
+	case 'e':
+		Z--;
+		break;
 	}
 }
