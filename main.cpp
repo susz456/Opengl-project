@@ -9,6 +9,7 @@ void keypressWrapper(int c, int x, int y) {
 }
 
 void keypressUpWrapper(int c, int x, int y) {
+  //lPos=vec4(0.0f,20.0f,-5.0f,1.0f);
 	globalEngine->actionUp(c, x, y);
 }
 
@@ -53,15 +54,32 @@ void drawMesh(vector<mesh_M> &mesh){
   }
 }
 
+void lightsOn(){
+  //ogolne
+  glUniform4fv(shaderProgram->getUniformLocation("lPos"), 1, value_ptr(lightPosition));//pozycja zrodla swiatla
+  vec4 lp=matV*lightPosition;
+//cout<<"pozycja "<<lp.x<<" "<<lp.y<<" "<<lp.z<<endl;
+  for(int i=0; i<5; i++){
+    //lp.x+=100;
+    //lp.y=1;
+    //lp=vec4(-4,2222,300,1);
+    glUniform4fv(shaderProgram->getUniformLocation("tab[5]"), 1, value_ptr(lp));//pozycja zrodla swiatla
+  }
+
+  //samochodowe
+  //glUniform3fv(shaderProgram->getUniformLocation("carLightPos"), 1, value_ptr(carLightPosition));
+  //glUniform3fv(shaderProgram->getUniformLocation("carLightDir"), 1, value_ptr(carLightDirection));
+}
+
+
 void drawObject(){
   shaderProgram->use();
   glBindVertexArray(vao);
-  assignVBOtoAttribute("color", pColors, 4);
-  glUniform4fv(shaderProgram->getUniformLocation("lPos"), 1, value_ptr(lightPosition));//pozycja zrodla swiatla
-
-  matM=scale(matM, vec3(2.0,2.0,2.0));
+  //assignVBOtoAttribute("color", pColors, 4);
+  lightsOn();
+  mat4 matM1=scale(matM, vec3(2.0,2.0,2.0));
   vecZ=vec3(-globalEngine->X,-globalEngine->Y,-globalEngine->Z);
-  mat4 matM1=translate(matM, vecZ);
+  matM1=translate(matM1, vecZ);
   vecZ=vec3(0.42,-0.57,0);//globalEngine->X, globalEngine->Y, globalEngine->Z
   matM1=translate(matM1, vecZ);
 
@@ -93,11 +111,12 @@ void displayFrame() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	matP = perspective(CAMERA_ANGLE,
-			(float) WINDOW_WIDTH / (float) WINDOW_HEIGHT, 1.0f, 100.0f); //kat, stosunek szer/dl, granica dolna odkad widac obraz, granica gorna (odleglosc od kamery)
+			(float) WINDOW_WIDTH / (float) WINDOW_HEIGHT, 1.0f, 20.0f); //kat, stosunek szer/dl, granica dolna odkad widac obraz, granica gorna (odleglosc od kamery)
 
-	matV = lookAt(vec3(globalCamera->X, globalCamera->Y+0.7, -1.9f),
+	matV = lookAt(vec3(globalCamera->X, globalCamera->Y+0.7, -2.0f),
 			vec3(0.0f, 0.0f, 60.0f), vec3(0.0f, 1.0f, 0.0f));
 
+  //matM=mat4(1.0f);
 	matM = rotate(mat4(1.0f), -globalEngine->angle, vec3(0, 1, 0));
 	//matV=matV+mat4(0.0,0.0,0.0,move_x,0.0,0.0,0.0,move_y,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 	drawObject();
@@ -121,11 +140,11 @@ GLuint makeBuffer(void* data, int vertexCount, int vertexSize) {
 	return handle;
 }
 
-float color [] = {1.0f, 0.0f, 0.0f, 1.0f};
+//float color [] = {1.0f, 0.0f, 0.0f, 1.0f};
 void setupVBO(){
   //pVertices=makeBuffer(pvertices, platformVertexCount, sizeof(float)*4);
 
-  pColors=makeBuffer(color, 1, sizeof(float));
+  //pColors=makeBuffer(color, 1, sizeof(float));
 
   for(int i=0; i<loaded.size(); i++){
     loaded[i].vertices=makeBuffer(&(loaded[i]).w[0], loaded[i].count*3, sizeof(float)*4);
@@ -158,6 +177,7 @@ void setupShaders() {
 	shaderProgram = new ShaderProgram("shaders/vertex_shader.glsl", NULL,
 			"shaders/fragment_shader.glsl");
 }
+
 
 void initOpenGL() {
 	setupShaders();

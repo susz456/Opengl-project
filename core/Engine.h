@@ -30,8 +30,8 @@ private:
 	float static const ANGLE_CHANGE = 0.7;
 	float static const OUT_OF_TRACK_FACTOR = 0.01;
 	
-	float static const CAR_WIDTH = 0.170;
-	float static const CAR_LENGTH = 0.370;
+	float static const CAR_WIDTH = 0.170*0.7;
+	float static const CAR_LENGTH = 0.370*0.7;
 	float static const TRACK_LEFT_BORDER = 0.340;
 	float static const TRACK_RIGHT_BORDER = -0.340;
 	float static const TRACK_END_BORDER = 22;

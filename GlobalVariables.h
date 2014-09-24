@@ -3,6 +3,7 @@
 #include "GL/glut.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "shaderprogram.h"
 #include "parser.h"
@@ -18,7 +19,7 @@ int WINDOW_WIDTH = 600;
 int WINDOW_HEIGHT = 600;
 int WINDOW_X = 100;
 int WINDOW_Y = 100;
-float CAMERA_ANGLE = 60.0f;
+float CAMERA_ANGLE = 40.0f;
 
 float ANGLE = 0;
 
@@ -34,15 +35,17 @@ GLuint bufVertices;
 GLuint bufColors;
 GLuint bufNormals;
 
-GLuint pVertices;
-GLuint pColors;
+//GLuint pVertices;
+//GLuint pColors;
 
 mat4 matP; //rzutowania
 mat4 matV; //widoku
 mat4 matM; //modelu
 vec3 vecZ; //wektor przesuniecia przy wduszeniu strzalek
 
-vec3 lightPosition = vec3(0.0, 20.0, -5.0); //pozycja zrodla swiatla
+vec4 lightPosition = vec4(0.1, 3.0, -3.0, 1.0); //pozycja zrodla swiatla
+vec3 carLightPosition = vec3(0.0, 2.0, 0.0);
+vec3 carLightDirection = vec3(0.0, 0.05, 1.0);
 
 Camera * globalCamera;
 Engine * globalEngine;
