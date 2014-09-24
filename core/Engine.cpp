@@ -113,11 +113,18 @@ void Engine::update() {
 
 void Engine::move() {
 	update();
-	printf ("speed:%f\n",speed);
+	//printf ("speed:%f\n",speed);
 	//printf ("angle:%f\n",angle);
 	
 	cosinus = cos (angle * PI / 180.0);
 	sinus = sin (angle * PI / 180.0);
+	
+	if (carIsOutOfTrack()) {
+		//printf ("out of track\n");
+		deaccelerate(OUT_OF_TRACK_FACTOR);
+		//speed = 0;
+		//return;
+	}
 	
 	if (direction == DIRECTION_FORWARD) {
 		Z += speed * cosinus;
@@ -126,6 +133,43 @@ void Engine::move() {
 		Z -= speed * cosinus;
 		X -= speed * sinus;
 	}
+}
+
+bool Engine::carIsOutOfTrack() {
+	left = X + (CAR_WIDTH / 2);
+	right = X - (CAR_WIDTH / 2);
+	top = Z + (CAR_LENGTH / 2);
+	bottom = Z - (CAR_LENGTH / 2);
+	
+	topLeft = calculateRotatedDimen(top, left);
+	topRight = calculateRotatedDimen(top, right);
+	bottomLeft = calculateRotatedDimen(bottom, left);
+	bottomRight = calculateRotatedDimen(bottom, right);
+	
+	//printf ("left:%f, right:%f, top:%f, bot:%f\n",left,right,top,bottom);
+	//printf ("topleft.x:%f topleft.z:%f\n",topLeft.X, topLeft.Z);
+	if (pointIsOutOfTrack(topLeft.X, topLeft.Z)) return true;
+	if (pointIsOutOfTrack(topRight.X, topRight.Z)) return true;
+	if (pointIsOutOfTrack(bottomLeft.X, bottomLeft.Z)) return true;
+	if (pointIsOutOfTrack(bottomRight.X, bottomRight.Z)) return true;
+	return false;
+}
+
+Point Engine::calculateRotatedDimen(float x, float z) {
+	Point p;
+	//printf("X:%f  Z:%f\n",X,Z);
+	//printf("angle:%f sinus:%f, cosinus:%f\n",angle,sinus,cosinus);
+	p.X = ((x - Z)*cosinus) - ((z - X)*sinus) + Z;
+	p.Z = ((x - Z)*sinus) + ((z - X)*cosinus) + X;
+	return p;
+}
+
+bool Engine::pointIsOutOfTrack(float z, float x) {
+	if (x >= TRACK_LEFT_BORDER) return true;
+	if (x <= TRACK_RIGHT_BORDER) return true;
+	if (z >= TRACK_END_BORDER) return true;
+	if (z <= TRACK_START_BORDER) return true;
+	return false;
 }
 
 void Engine::accelerate(float factor) {
